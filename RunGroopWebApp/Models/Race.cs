@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RunGroopWebApp.Models
 {
-    public class Races
+    public class Race
     {
         [Key]
         public int Id { get; set; } // Khóa chính
@@ -20,5 +20,7 @@ namespace RunGroopWebApp.Models
         [ForeignKey("AppUser")]
         public string? AppUserId { get; set; } //cho phép giá trị của thuộc tính này có thể là null.
         public AppUser AppUser { get; set; }
+
+
     }
 }
