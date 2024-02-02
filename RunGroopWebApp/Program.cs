@@ -1,7 +1,16 @@
+﻿using Microsoft.EntityFrameworkCore;
+using RunGroopWebApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// đăng ký và cấu hình một DbContext để sử dụng Entity Framework Core và kết nối đến một cơ sở dữ liệu SQL Server.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 
