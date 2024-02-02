@@ -6,6 +6,7 @@ namespace RunGroopWebApp.Data
 {
     public class Seed
     {
+        //Xem ky
         public static void SeedData(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
