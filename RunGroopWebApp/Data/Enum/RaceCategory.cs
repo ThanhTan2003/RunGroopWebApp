@@ -6,6 +6,7 @@
         Ultra,
         Fivek,
         TenK,
-        HailfMarathon
+        HailfMarathon,
+        Marathon
     }
 }
