@@ -5,7 +5,7 @@ namespace RunGroopWebApp.Controllers
 {
     public class ClubController : Controller
     {
-        ApplicationDbContext _context;
+        public readonly ApplicationDbContext _context;
         public ClubController(ApplicationDbContext context)
         {
             _context = context;
