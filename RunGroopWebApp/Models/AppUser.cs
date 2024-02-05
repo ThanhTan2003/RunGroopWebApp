@@ -11,6 +11,5 @@ namespace RunGroopWebApp.Models
         public Address? Address { get; set; }
         public ICollection<Club> Clubs { get; set; } // List có thể thêm - sửa - xóa trong .Net Framework
         public ICollection<Race> Races { get; set; } 
-        
     }
 }

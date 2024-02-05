@@ -20,7 +20,5 @@ namespace RunGroopWebApp.Models
         [ForeignKey("AppUser")]
         public string? AppUserId { get; set; } //cho phép giá trị của thuộc tính này có thể là null.
         public AppUser AppUser { get; set; }
-
-
     }
 }
