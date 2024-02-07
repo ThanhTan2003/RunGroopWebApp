@@ -12,5 +12,10 @@ namespace RunGroopWebApp.Data
         public DbSet<Race> Races { get; set; }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Address> Addresses { get; set; }
+
+        internal void Save(Club club)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
