@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace RunGroopWebApp.Models
 {
@@ -12,4 +13,5 @@ namespace RunGroopWebApp.Models
         public ICollection<Club> Clubs { get; set; } // List có thể thêm - sửa - xóa trong .Net Framework
         public ICollection<Race> Races { get; set; } 
     }
+    
 }
