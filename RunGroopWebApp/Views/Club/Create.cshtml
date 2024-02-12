@@ -1,11 +1,12 @@
 ﻿@using RunGroopWebApp.Data.Enum
+@using RunGroopWebApp.ViewModels
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-@model Club
-<form method="post" asp-action="Create">
+@model CreateClubViewModel
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div style="width: 100%">
         <div style="width: 50%; float: left;">
             <div class="form-group">
@@ -25,7 +26,7 @@
             <div class="form-group">
                 <b><label asp-for="Image">Image</label></b>
 
-                <input asp-for="Image" class="form-control" placeholder="Enter Street Image">
+                <input asp-for="Image" class="form-control" type="file">
                 <span asp-validation-for="Image" class="text-danger"></span>
                 <br />
             </div>
@@ -66,7 +67,9 @@
         </div>
         
         <div style="width: 45%; float: left;">
-            <img src="~/Images/ImageCreate.png" style="width: 100%; height: auto" />
+            <br />
+            <br />
+            <img src="https://vectorart.ai/header-r6.svg" style="width: 100%; height: auto" />
         </div>
 
     </div>
