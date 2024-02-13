@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using RunGroopWebApp.Data;
 using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
@@ -59,6 +60,62 @@ namespace RunGroopWebApp.Controllers
                 ModelState.AddModelError("", "Photo upload to failed");
             }
             return View(clubViewModel);
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var club = await clubRepository.GetByIdAsync(id);
+            if(club == null)
+                return View("Error");
+            var clubViewModel = new EditClubViewModel
+            {
+                Title = club.Title,
+                Description = club.Description,
+                AddressId   = club.AddressId,   
+                URL = club.Image,
+                Address = club.Address,
+                ClubCategory = club.ClubCategory
+            };
+            return View(clubViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditClubViewModel editClubViewModel)
+        {
+            if(!ModelState.IsValid) // Kiểm tra dữ liệu nhập có hợp lệ không?
+            {
+                ModelState.AddModelError("", "Failed to edit club");
+                return View("Edit", editClubViewModel);
+            }
+            
+            var userClub = await clubRepository.GetByIdAsyncNoTracking(id); // Lấy club theo id
+            
+            if(userClub != null) // Kiểm tra hình ảnh upload
+            {
+                try
+                {
+                    await photoService.DeletePhotoAsync(userClub.Image); // Xóa hình ảnh trên cloud
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Could not delete photo");
+                    return View(editClubViewModel);
+                }
+                var photoResult = await photoService.AddPhotoAsync(editClubViewModel.Image); // Thêm hình ảnh mới
+                var club = new Club
+                {
+                    Id = id,
+                    Title = editClubViewModel.Title,
+                    Description = editClubViewModel.Description,
+                    Address = editClubViewModel.Address,
+                    Image = photoResult.Url.ToString(),
+                    AddressId = id,
+                };
+                clubRepository.Update(club);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(editClubViewModel);
+            }
         }
     }
 }

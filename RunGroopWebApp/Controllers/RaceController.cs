@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RunGroopWebApp.Data;
+using RunGroopWebApp.Data.Enum;
 using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
 using RunGroopWebApp.Repositorys;
@@ -60,6 +61,62 @@ namespace RunGroopWebApp.Controllers
                 ModelState.AddModelError("", "Photo upload to failed");
             }
             return View(createRaceViewModel);
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var race = await raceRepository.GetByIdAsync(id);
+            if(race == null)
+            {
+                return View("Error");
+            }
+            var editViewModel = new EditRaceViewModel
+            {
+                Id = race.Id,
+                Title = race.Title,
+                Description = race.Description,
+                URL = race.Image,
+                Address = race.Address,
+                RaceCategory = race.RaceCategory
+            };
+            return View(editViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditRaceViewModel editRaceViewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to edit race");
+                return View(editRaceViewModel);
+            }
+            var userRace = await raceRepository.GetByIdAsyncNoTracking(id);
+            if(userRace != null)
+            {
+                try
+                {
+                    await photoService.DeletePhotoAsync(userRace.Image);
+
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Could not delete photo");
+                    return View(editRaceViewModel);
+                }
+                var newPhoto = await photoService.AddPhotoAsync(editRaceViewModel.Image);
+                var race = new Race
+                {
+                    Id = editRaceViewModel.Id,
+                    Title = editRaceViewModel.Title,
+                    Description = editRaceViewModel.Description,
+                    Image = newPhoto.Url.ToString(),
+                    Address = editRaceViewModel.Address
+                };
+                raceRepository.Update(race);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(editRaceViewModel);
+            }
         }
     }
 }

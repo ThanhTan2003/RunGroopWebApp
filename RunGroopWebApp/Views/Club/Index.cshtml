@@ -4,7 +4,16 @@
 *@
 @{
 }
-<h1>Hello Index Club</h1>
+<div style="width: 100%; float: left;">
+    <div style="width: 50%; float: left;">
+        <h1>Hello Index Club</h1>
+    </div>
+    <div style="width: 50%; float: right;">
+        <a asp-controller="Club" asp-action="Create">
+            <button type="button" class="btn btn-primary" style="width: 25%; float: right">Create a new Club</button>
+        </a>
+    </div>
+</div>
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -19,7 +28,9 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a asp-controller ="Club" asp-action="Detail" asp-route-id ="@item.Id" class="btn btn-sm btn-outline-secondary">View</a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    <a asp-controller="Club" asp-action="Edit" asp-route-id ="@item.Id">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </a>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
                                 </div>
                                 <small class="text-body-secondary">@item.ClubCategory</small>

@@ -9,6 +9,7 @@ namespace RunGroopWebApp.Repositorys
     {
         private readonly ApplicationDbContext context;
 
+        public static int Index = 0;
         public ClubRepository(ApplicationDbContext context)
         {
             this.context = context;
@@ -20,7 +21,12 @@ namespace RunGroopWebApp.Repositorys
 
         public async Task<Club> GetByIdAsync(int id)
         {
-            return await context.Clubs.Include(c =>c.Address).FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Clubs.Include(c => c.Address).FirstOrDefaultAsync(x => x.Id == id); ;
+        }
+
+        public async Task<Club> GetByIdAsyncNoTracking(int id)
+        {
+            return await context.Clubs.Include(c => c.Address).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Club>> GetClubByCity(string city)

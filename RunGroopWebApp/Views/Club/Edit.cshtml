@@ -1,0 +1,74 @@
+﻿@using RunGroopWebApp.Data.Enum
+@using RunGroopWebApp.ViewModels
+@model EditClubViewModel
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <div style="width: 100%">
+        <div style="width: 50%; float: left;">
+            <input type="hidden" value="AddressId" id="AddressId" />
+            <div class="form-group">
+                <b><label asp-for="Title">Title</label></b>
+                <input asp-for="Title" class="form-control" placeholder="Title">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <b><label asp-for="Description">Description</label></b>
+                <input asp-for="Description" class="form-control" placeholder="Description">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <b><label asp-for="ClubCategory">Club Category</label></b>
+                <select asp-for="ClubCategory" asp-items="@Html.GetEnumSelectList<ClubCategory>()" class="form-select mb-3">
+                    <option selected="selected" value="">--Select--</option>
+                </select>
+                <span asp-validation-for="ClubCategory" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <b><label asp-for="Address.Street">Street</label></b>
+                <input asp-for="Address.Street" class="form-control" placeholder="Street">
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <b><label asp-for="Address.City">City</label></b>
+                <input asp-for="Address.City" class="form-control" placeholder="City">
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <b.<label asp-for="Address.State">State</label>
+        <input asp-for="Address.State" class="form-control" placeholder="Street">
+        <span asp-validation-for="Address.State" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <b><label asp-for="Image">Image</label></b>
+                <input asp-for="Image" type="file" class="form-control" placeholder="Image" accept="image/*">
+                <span asp-validation-for="Image" class="text-danger"></span>
+
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary" style="width: 100%">Edit</button>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+        <div style="width: 10%; float: left;">
+            <p>&nbsp</p>
+        </div>
+        <div style="width: 40%; float: left;">
+            <br />
+            <br />
+            <img src="https://vectorart.ai/header-r6.svg" style="width: 100%; height: auto" />
+        </div>
+    </div>
+    
+</form>
+<br />
+<br />
+<br />
+<br />
